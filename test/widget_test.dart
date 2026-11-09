@@ -139,4 +139,24 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Chicken Handi'), findsOneWidget);
   });
+  for (final corpo in [
+    '{}',
+    '{"meals":[null]}',
+    '{"meals":[{"strMeal":123}]}',
+    '{"meals":[{"strIngredient1":123}]}',
+  ]) {
+    testWidgets('Estrutura inválida é tratada como erro: $corpo', (
+      tester,
+    ) async {
+      final client = MockClient((request) async => http.Response(corpo, 200));
+      await tester.pumpWidget(MyApp(client: client));
+      await tester.enterText(find.byType(TextField), 'chicken');
+      await tester.tap(find.text('Pesquisar'));
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Não foi possível consultar as receitas. Tente novamente.'),
+        findsOneWidget,
+      );
+    });
+  }
 }

@@ -71,9 +71,29 @@ class _TelaPesquisaState extends State<TelaPesquisa> {
           : await widget.client!.get(uri);
       if (resposta.statusCode != 200) throw Exception('Erro HTTP');
       final dados = jsonDecode(resposta.body) as Map<String, dynamic>;
+      if (!dados.containsKey('meals')) {
+        throw const FormatException('Resposta inválida');
+      }
       final lista = dados['meals'];
       if (lista != null && lista is! List) {
         throw const FormatException('Resposta inválida');
+      }
+      if (lista is List) {
+        for (final receita in lista) {
+          if (receita is! Map<String, dynamic>) {
+            throw const FormatException('Receita inválida');
+          }
+          final campos = ['strMeal', 'strMealThumb', 'strInstructions'];
+          for (var i = 1; i <= 20; i++) {
+            campos.add('strIngredient$i');
+            campos.add('strMeasure$i');
+          }
+          for (final campo in campos) {
+            if (receita[campo] != null && receita[campo] is! String) {
+              throw const FormatException('Campo inválido');
+            }
+          }
+        }
       }
       if (!mounted) return;
       setState(() {
