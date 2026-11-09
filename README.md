@@ -1,6 +1,6 @@
 # TP6 — Busca de receitas
 
-Aplicativo desenvolvido por **Enzo Akira Sasaki dos Santos** para a disciplina de Desenvolvimento de Dispositivos Mobile.
+Aplicativo desenvolvido por **Enzo Akira Sasaki dos Santos** e **Pedro Augusto de Melo Borges** para a disciplina de Desenvolvimento de Dispositivos Mobile.
 
 Permite pesquisar receitas pelo nome usando a API pública [TheMealDB](https://www.themealdb.com/docs_api_guide.php), visualizar imagens e abrir os ingredientes e o modo de preparo. Os dados das receitas são fornecidos pela API, geralmente em inglês. O aplicativo não salva dados localmente.
 

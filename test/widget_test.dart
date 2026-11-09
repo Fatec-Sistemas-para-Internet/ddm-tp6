@@ -10,7 +10,10 @@ import 'package:tp6/main.dart';
 void main() {
   testWidgets('Mostra pesquisa e identifica o aluno', (tester) async {
     await tester.pumpWidget(const MyApp());
-    expect(find.text('Enzo Akira Sasaki dos Santos'), findsOneWidget);
+    expect(
+      find.text('Enzo Akira Sasaki dos Santos\nPedro Augusto de Melo Borges'),
+      findsOneWidget,
+    );
     expect(find.byType(TextField), findsOneWidget);
     expect(find.widgetWithText(ElevatedButton, 'Pesquisar'), findsOneWidget);
   });
@@ -159,4 +162,32 @@ void main() {
       );
     });
   }
+  testWidgets('Detalhes avisam quando ingredientes e preparo estão ausentes', (
+    tester,
+  ) async {
+    final client = MockClient(
+      (request) async => http.Response(
+        jsonEncode({
+          'meals': [
+            {
+              'strMeal': 'Receita incompleta',
+              'strMealThumb': '',
+              'strIngredient1': '   ',
+              'strInstructions': '',
+            },
+          ],
+        }),
+        200,
+      ),
+    );
+    await tester.pumpWidget(MyApp(client: client));
+    await tester.enterText(find.byType(TextField), 'receita');
+    await tester.tap(find.text('Pesquisar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Receita incompleta'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ingredientes não informados.'), findsOneWidget);
+    expect(find.text('Modo de preparo não informado.'), findsOneWidget);
+    expect(find.byIcon(Icons.broken_image), findsOneWidget);
+  });
 }

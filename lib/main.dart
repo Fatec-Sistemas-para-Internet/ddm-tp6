@@ -1,4 +1,4 @@
-// Aluno: Enzo Akira Sasaki dos Santos
+// Alunos: Enzo Akira Sasaki dos Santos e Pedro Augusto de Melo Borges
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -113,7 +113,13 @@ class _TelaPesquisaState extends State<TelaPesquisa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Enzo Akira Sasaki dos Santos')),
+      appBar: AppBar(
+        title: const Text(
+          'Enzo Akira Sasaki dos Santos\nPedro Augusto de Melo Borges',
+          style: TextStyle(fontSize: 14),
+          maxLines: 2,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

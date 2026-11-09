@@ -20,7 +20,13 @@ class TelaDetalhes extends StatelessWidget {
     final preparo = (receita['strInstructions'] as String? ?? '').trim();
     final imagem = receita['strMealThumb'] as String? ?? '';
     return Scaffold(
-      appBar: AppBar(title: const Text('Enzo Akira Sasaki dos Santos')),
+      appBar: AppBar(
+        title: const Text(
+          'Enzo Akira Sasaki dos Santos\nPedro Augusto de Melo Borges',
+          style: TextStyle(fontSize: 14),
+          maxLines: 2,
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
