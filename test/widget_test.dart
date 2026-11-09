@@ -106,4 +106,37 @@ void main() {
       findsOneWidget,
     );
   });
+  testWidgets('Abre detalhes com ingredientes e preparo e retorna', (
+    tester,
+  ) async {
+    final client = MockClient(
+      (request) async => http.Response(
+        jsonEncode({
+          'meals': [
+            {
+              'strMeal': 'Chicken Handi',
+              'strMealThumb': '',
+              'strIngredient1': 'Chicken',
+              'strMeasure1': '1 kg',
+              'strIngredient2': '  ',
+              'strInstructions': 'Cook well.',
+            },
+          ],
+        }),
+        200,
+      ),
+    );
+    await tester.pumpWidget(MyApp(client: client));
+    await tester.enterText(find.byType(TextField), 'chicken');
+    await tester.tap(find.text('Pesquisar'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Chicken Handi'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ingredientes'), findsOneWidget);
+    expect(find.text('1 kg - Chicken'), findsOneWidget);
+    expect(find.text('Cook well.'), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('Chicken Handi'), findsOneWidget);
+  });
 }

@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'detalhes.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -120,6 +122,13 @@ class _TelaPesquisaState extends State<TelaPesquisa> {
                         final receita = receitas[index] as Map<String, dynamic>;
                         final imagem = receita['strMealThumb'] as String? ?? '';
                         return ListTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  TelaDetalhes(receita: receita),
+                            ),
+                          ),
                           leading: imagemReceita(imagem, 64),
                           title: Text(
                             receita['strMeal'] as String? ?? 'Receita sem nome',
@@ -133,25 +142,4 @@ class _TelaPesquisaState extends State<TelaPesquisa> {
       ),
     );
   }
-}
-
-Widget imagemReceita(String url, double tamanho) {
-  if (url.isEmpty) {
-    return SizedBox(
-      width: tamanho,
-      height: tamanho,
-      child: const Icon(Icons.broken_image),
-    );
-  }
-  return Image.network(
-    url,
-    width: tamanho,
-    height: tamanho,
-    fit: BoxFit.cover,
-    errorBuilder: (context, error, stackTrace) => SizedBox(
-      width: tamanho,
-      height: tamanho,
-      child: const Icon(Icons.broken_image),
-    ),
-  );
 }

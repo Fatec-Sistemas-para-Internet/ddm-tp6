@@ -1,17 +1,23 @@
-# tp6
+# TP6 — Busca de receitas
 
-A new Flutter project.
+Aplicativo desenvolvido por **Enzo Akira Sasaki dos Santos** para a disciplina de Desenvolvimento de Dispositivos Mobile.
 
-## Getting Started
+Permite pesquisar receitas pelo nome usando a API pública [TheMealDB](https://www.themealdb.com/docs_api_guide.php), visualizar imagens e abrir os ingredientes e o modo de preparo. Os dados das receitas são fornecidos pela API, geralmente em inglês. O aplicativo não salva dados localmente.
 
-This project is a starting point for a Flutter application.
+## Executar
 
-A few resources to get you started if this is your first Flutter project:
+É necessário ter o Flutter instalado, um dispositivo ou emulador configurado e acesso à internet.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+flutter pub get
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Pesquise por um termo em inglês, como `chicken`, e toque em um resultado para ver os detalhes.
+
+## Verificar
+
+```bash
+flutter analyze
+flutter test
+```
